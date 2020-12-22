@@ -1,0 +1,126 @@
+html {
+    font-size: 62.5%;
+}
+body {
+    background: #333745;
+    font-family: Helvetica,Arial, sans-serif;
+    font-size: 1.6rem;
+    margin: 0;
+    padding: 0;
+}
+button {
+    cursor: pointer;
+}
+button:disabled {
+    cursor: default;
+}
+.container{
+    max-width: 60%;
+    margin: 0 auto;
+    padding: 0 1.6rem;
+}
+@media(min-width: 1100px){
+    .container{
+        max-width: 30%;
+        margin: 0 auto;
+        padding: 0 1.6rem;
+    }
+}
+@media(max-width: 522px){
+    .container{
+        max-width: 70%;
+        margin: 0 auto;
+        padding: 0 1.6rem;
+    }
+}
+.header{
+    background: #20222b;
+    margin-bottom: 1.6rem;
+    color: white;
+    padding: 1.6rem 0;
+}
+.header__title {
+    font-size: 3.2rem;
+    margin: 0;
+}
+.header__subtitle {
+    color: #a5afd7;
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+}
+@media(min-width: 45rem){
+    .header{
+        margin-bottom: 4.8rem;
+    }
+}
+.column label {
+    display: block;
+    color: white;
+    font-size: 2rem;
+    margin-top: .8rem;
+    margin-bottom: 1rem;
+    line-height: normal;
+}
+.error {
+    color: #a5afd7;
+    font-style: italic;
+    margin: 0 0 0 0;
+    padding: 0 1.6rem;
+}
+.Form {
+    padding: 1.6rem;
+    background-color: #3c4251;
+    width: 100%;
+    margin-bottom: 2.4rem;
+}
+.Form__input {
+    background: #333745;
+    border: none;
+    width: 90%;
+    border-bottom: .3rem solid darken(#333745 , 10%);
+    color: #a5afd7;
+    padding: 1.2rem;
+    margin: 0 0 1.2rem 0;
+}
+.big-button {
+    background: #8357c5;
+    border: none;
+    border-bottom: .6rem solid darken(#8357c5 , 10%);
+    width: 100%;
+    color: white;
+    font-size: 3.2rem;
+    font-weight: bold;
+    margin-top: 1.6rem;
+    margin-bottom: 1.6rem;
+    padding: 2.4rem;
+}
+.link {
+    text-align: center;
+}
+.link a {
+    color: white;
+    text-decoration: none;
+}
+.divide {
+    display: flex;
+    justify-content: space-between;
+}
+.normal-button {
+    background: #8357c5;
+    border: none;
+    border-bottom: .6rem solid darken(#8357c5 , 10%);
+    color: white;
+    font-weight: 500;
+    padding: 1.2rem;
+}
+.text__main {
+    color: white;
+    font-size: 4.8rem;
+    margin: 1.6rem 0 0 0;
+}
+.text {
+    color: white;
+    font-size: 1.6rem;
+    margin: 0;
+}

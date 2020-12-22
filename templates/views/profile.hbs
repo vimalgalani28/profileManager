@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    {{>header}}
+    <div class="container">
+        <div class="divide">
+            <button class="normal-button" id="logout">Logout</button>
+            <button class="normal-button" id="delete">Delete Account</button>
+        </div>
+        <div>
+            <p class="text__main">Hello, {{Name}} {{lName}}!</p>
+            <p class="text">This is your private profile</p>
+        </div>
+    </div>
+    <script>
+        const logoutButton = document.querySelector("#logout")
+        const deleteButton = document.querySelector("#delete")
+        logoutButton.addEventListener("click" , async function(){
+            try {
+                const res = await fetch("/user/logout" , {
+                    method : 'POST',
+                    redirect : 'follow'
+                })
+                document.location.assign("/")
+            } catch(e) {
+                console.log(e)
+            }
+        })
+        deleteButton.addEventListener("click" , async function(){
+            try {
+                const res = await fetch("/user/me" , {
+                    method : 'DELETE',
+                    redirect : 'follow'
+                })
+                document.location.assign("/")
+            } catch(e) {
+                console.log(e)
+            }
+        })
+    </script>
+</body>
+</html>

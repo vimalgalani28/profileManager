@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    {{>header}}
+    <div class="container">
+        <form id="loginForm" class="Form">
+            <div class="column">
+                <label for="email">Email</label>
+                <input class="Form__input" type="text" placeholder="Email" name="email" id="username" required>
+            </div>
+            <div class="column">
+                <p class="error" id="emailError">{{error}}</p>
+            </div>
+            <div class="column">
+                <label for="password">Password</label>
+                <input class="Form__input" type="password" placeholder="Password (7 minimum characters)" name="password" id="password" required>
+            </div>
+            <div class="column">
+                <p class="error" id="loginError">{{error}}</p>
+            </div>
+            <div>
+                <button class="big-button" type="submit">login</button>
+            </div>
+            <div class="link">
+                <a href="/user/register">D'ont have an account?</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        const loginForm = document.querySelector("#loginForm")
+        const loginError = document.querySelector("#loginError")
+        const emailError = document.querySelector("#emailError")
+        loginForm.addEventListener("submit" , async function(e){
+            e.preventDefault()
+            emailError.textContent = "" 
+            loginError.textContent = "" 
+            email = e.target.elements.email.value.trim()
+            password = e.target.elements.password.value.trim()
+            if(!email) {
+                emailError.textContent = "This field is required. Please fill out!"
+            } else if(!password) {
+                loginError.textContent = "This field is required. Please fill out!"
+            } else {
+                try {
+                    const myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
+                    const res = await fetch("/user/login",{
+                        method : 'POST' ,
+                        headers : myHeaders , 
+                        body : JSON.stringify({email , password}),
+                        redirect: 'follow'
+                    })
+                    const data = await res.json()
+                    if(data.error){
+                        loginError.textContent = data.error
+                    }
+                    else {
+                        document.location.assign("/user/me")
+                    }
+                    e.target.elements.email.value = ""
+                    e.target.elements.password.value = ""
+                }catch(e) {
+                    console.log(e)
+                }
+            }
+            e.target.elements.email.value = ""
+            e.target.elements.password.value = ""
+        })
+    </script>
+</body>
+</html>

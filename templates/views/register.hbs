@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Manager</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    {{>header}}
+    <div class="container">
+        <form id="registerForm" class="Form">
+            <div class="column">
+                <label for="name">First Name</label>
+                <input class="Form__input" type="text" placeholder="First Name" name="name" id="name">
+            </div>
+            <div class="column">
+                <p class="error" id="nameError"></p>
+            </div>
+            <div class="column">
+                <label for="lname">Last Name</label>
+                <input class="Form__input" type="text" placeholder="Last Name" name="lname" id="lname">
+            </div>
+            <div class="column">
+                <p class="error" id="lnameError"></p>
+            </div>
+            <div class="column">
+                <label for="email">Email</label>
+                <input class="Form__input" type="text" placeholder="Email" name="email" id="username">
+            </div>
+            <div class="column">
+                <p class="error" id="emailError"></p>
+            </div>
+            <div class="column">
+                <label for="password">Password</label>
+                <input class="Form__input" type="password" placeholder="Password (7 minimum characters)" name="password" id="password">
+            </div>
+            <div class="column">
+                <p class="error" id="passwordError"></p>
+            </div>
+            <div class="column">
+                <p class="error" id="registerError">{{error}}</p>
+            </div>
+            <div>
+                <button class="big-button" type="submit">Sign Up</button>
+            </div>
+            <div class="link">
+                <a href="/user/login">Already have an account?</a>
+            </div>
+        </form>
+    </div>
+    <script>
+        const registerForm = document.querySelector("#registerForm")
+        const registerError = document.querySelector("#registerError")
+        const nameError = document.querySelector("#nameError")
+        const lnameError = document.querySelector("#lnameError")
+        const emailError = document.querySelector("#emailError")
+        const passwordError = document.querySelector("#passwordError")
+        registerForm.addEventListener("submit" , async function(e) {
+            nameError.textContent = ""
+            lnameError.textContent = ""
+            emailError.textContent = "" 
+            passwordError.textContent = ""
+            e.preventDefault()
+            Name = e.target.elements.name.value.trim()
+            lName = e.target.elements.lname.value.trim()
+            email = e.target.elements.email.value.trim()
+            password = e.target.elements.password.value.trim()
+            if(!Name) {
+                nameError.textContent = "This field is required. Please fill out!"
+            }else if(!lName) {
+                lnameError.textContent = "This field is required. Please fill out!"
+            }else if(!email) {
+                emailError.textContent = "This field is required. Please fill out!"
+            }else if(!password) {
+                passwordError.textContent = "This field is required. Please fill out!"
+            }
+            else {
+                try {
+                    const myHeaders = new Headers();
+                    myHeaders.append("Content-Type", "application/json");
+                    const res = await fetch("/user/register",{
+                        method : 'POST' ,
+                        headers : myHeaders , 
+                        body : JSON.stringify({Name, lName, email , password}),
+                        redirect: 'follow'
+                    })
+                    const data = await res.json()
+                    if(data.error){
+                        registerError.textContent = data.error
+                    }else {
+                        registerError.textContent = ""
+                        document.location.assign("/user/me")
+                    }
+                    e.target.elements.name.value = ""
+                    e.target.elements.email.value = ""
+                    e.target.elements.lname.value = ""
+                    e.target.elements.password.value = ""
+                }catch(e) {
+                    console.log(e)
+                }
+            }
+            e.target.elements.name.value = ""
+            e.target.elements.email.value = ""
+            e.target.elements.lname.value = ""
+            e.target.elements.password.value = ""
+        })
+    </script>
+</body>
+</html>
