@@ -62,19 +62,26 @@
             lnameError.textContent = ""
             emailError.textContent = "" 
             passwordError.textContent = ""
+            registerError.textContent = ""
             e.preventDefault()
             Name = e.target.elements.name.value.trim()
             lName = e.target.elements.lname.value.trim()
             email = e.target.elements.email.value.trim()
             password = e.target.elements.password.value.trim()
-            if(!Name) {
-                nameError.textContent = "This field is required. Please fill out!"
-            }else if(!lName) {
-                lnameError.textContent = "This field is required. Please fill out!"
-            }else if(!email) {
-                emailError.textContent = "This field is required. Please fill out!"
-            }else if(!password) {
-                passwordError.textContent = "This field is required. Please fill out!"
+            if(!Name || !lName || !email || !password)
+            {
+                if(!Name) {
+                    nameError.textContent = "*Required"
+                }
+                if(!lName) {
+                    lnameError.textContent = "*Required"
+                }
+                if(!email) {
+                    emailError.textContent = "*Required"
+                }
+                if(!password) {
+                    passwordError.textContent = "*Required"
+                }
             }
             else {
                 try {
@@ -93,18 +100,10 @@
                         registerError.textContent = ""
                         document.location.assign("/user/me")
                     }
-                    e.target.elements.name.value = ""
-                    e.target.elements.email.value = ""
-                    e.target.elements.lname.value = ""
-                    e.target.elements.password.value = ""
                 }catch(e) {
                     console.log(e)
                 }
             }
-            e.target.elements.name.value = ""
-            e.target.elements.email.value = ""
-            e.target.elements.lname.value = ""
-            e.target.elements.password.value = ""
         })
     </script>
 </body>

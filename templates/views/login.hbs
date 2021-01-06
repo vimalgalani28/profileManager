@@ -43,11 +43,15 @@
             loginError.textContent = "" 
             email = e.target.elements.email.value.trim()
             password = e.target.elements.password.value.trim()
-            if(!email) {
-                emailError.textContent = "This field is required. Please fill out!"
-            } else if(!password) {
-                loginError.textContent = "This field is required. Please fill out!"
-            } else {
+            if(!email || !password) {
+                if(!email) {
+                    emailError.textContent = "*Required"
+                }
+                if(!password) {
+                    loginError.textContent = "*Required"
+                } 
+            }
+            else {
                 try {
                     const myHeaders = new Headers();
                     myHeaders.append("Content-Type", "application/json");
@@ -64,14 +68,10 @@
                     else {
                         document.location.assign("/user/me")
                     }
-                    e.target.elements.email.value = ""
-                    e.target.elements.password.value = ""
                 }catch(e) {
                     console.log(e)
                 }
             }
-            e.target.elements.email.value = ""
-            e.target.elements.password.value = ""
         })
     </script>
 </body>
